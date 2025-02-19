@@ -28,6 +28,7 @@ export default ({ settings }: SettingsProps) => {
    }
 
    const execute = () => {
+      settings.set('pressed', 'yes')
       listServersUserIsActiveIn()
    }
 
@@ -42,6 +43,8 @@ export default ({ settings }: SettingsProps) => {
       />
       <FormInput value={settings.get('userid', '')} onTextChange={(text) => settings.set('userid', text)} />
       <FormCTAButton onPress={execute} />
+      <Text>{settings.get('pressed', 'no')}</Text>
       <Text>{settings.get('guild_list', '')}</Text>
+      
    </>)
 };
