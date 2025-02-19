@@ -1,8 +1,6 @@
 import { FormCTAButton, FormInput, FormRow, FormSwitch, Text } from 'enmity/components';
 import { SettingsStore } from 'enmity/api/settings';
-import { React } from 'enmity/metro/common';
-import { Token } from 'enmity/metro/common';
-
+import { React, Token } from 'enmity/metro/common';
 
 interface SettingsProps {
    settings: SettingsStore;
@@ -43,7 +41,7 @@ export default ({ settings }: SettingsProps) => {
          />}
       />
       <FormInput value={settings.get('userid', '')} onTextChange={(text) => settings.set('userid', text)} />
-      <FormCTAButton onClick={execute} />
+      <FormCTAButton />
       <Text>{settings.get('guild_list', '')}</Text>
    </>)
 };
