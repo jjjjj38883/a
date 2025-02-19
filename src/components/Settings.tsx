@@ -29,16 +29,14 @@ export default ({ settings }: SettingsProps) => {
 
    const execute = () => {
       settings.set('pressed_e', 'yes')
-      try {
-         listServersUserIsActiveIn()
-      } catch (e) {
-         settings.set('error_e', e)
-      }
+      listServersUserIsActiveIn()
+
    }
 
    return (<>
       <FormInput value={settings.get('userid', '')} onTextChange={(text) => settings.set('userid', text)} />
       <FormRow label={settings.get('guild_list', '')}/>
-      <FormRow label="submit"/>
+      <FormRow label="submit" onPress={execute}/>
+      <FormRow label={settings.get('pressed_e', '')}/>
    </>)
 };
