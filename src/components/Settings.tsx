@@ -42,8 +42,10 @@ export default ({ settings }: SettingsProps) => {
          />}
       />
       <FormInput value={settings.get('userid', '')} onTextChange={(text) => settings.set('userid', text)} />
-      <TouchableOpacity><div style={{padding: 30, backgroundColor: 'red'}}></div></TouchableOpacity>
       <Text>{settings.get('guild_list', '')}</Text>
       
    </>)
 };
+
+//<Text>{settings.get('pressed', 'no')}</Text>
+//<TouchableOpacity><div style={{padding: 30, backgroundColor: 'red'}}></div></TouchableOpacity>
