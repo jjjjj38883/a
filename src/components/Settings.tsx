@@ -39,6 +39,6 @@ export default ({ settings }: SettingsProps) => {
    return (<>
       <FormInput value={settings.get('userid', '')} onTextChange={(text) => settings.set('userid', text)} />
       <FormRow label={settings.get('guild_list', '')}/>
-      <FormRow label="submit" onPress={execute}/>
+      <FormRow label="submit"/>
    </>)
 };
