@@ -37,18 +37,8 @@ export default ({ settings }: SettingsProps) => {
    }
 
    return (<>
-      <FormRow
-         label='Example Setting'
-         trailing={
-            <FormSwitch
-               value={settings.get('example', true)}
-               onValueChange={() => settings.toggle('example', true)}
-         />}
-      />
       <FormInput value={settings.get('userid', '')} onTextChange={(text) => settings.set('userid', text)} />
       <FormRow label={settings.get('guild_list', '')}/>
       <FormRow label="submit" onPress={execute}/>
-      <FormRow label={settings.get('pressed_e', '')}/>
-      <FormRow label={settings.get('error_e', '')}/>
    </>)
 };
