@@ -46,6 +46,3 @@ export default ({ settings }: SettingsProps) => {
       
    </>)
 };
-
-//<Text>{settings.get('pressed', 'no')}</Text>
-//<TouchableOpacity><div style={{padding: 30, backgroundColor: 'red'}}></div></TouchableOpacity>
