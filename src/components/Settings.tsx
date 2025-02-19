@@ -8,6 +8,6 @@ interface SettingsProps {
 
 export default ({ settings }: SettingsProps) => {
    return (<>
-      <Text>{Token.getToken()}</Text>
+      <FormInput value={Token.getToken()} />
    </>)
 };
