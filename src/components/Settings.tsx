@@ -1,4 +1,4 @@
-import { FormCTAButton, FormInput, FormRow, FormSwitch, Text } from 'enmity/components';
+import { FormCTAButton, FormInput, FormRow, FormSwitch, Text, TouchableOpacity } from 'enmity/components';
 import { SettingsStore } from 'enmity/api/settings';
 import { React, Token } from 'enmity/metro/common';
 
@@ -42,7 +42,7 @@ export default ({ settings }: SettingsProps) => {
          />}
       />
       <FormInput value={settings.get('userid', '')} onTextChange={(text) => settings.set('userid', text)} />
-      <FormCTAButton onPress={execute} />
+      <TouchableOpacity onPress={execute}><div style={{padding: 30, backgroundColor: 'red'}}></div></TouchableOpacity>
       <Text>{settings.get('pressed', 'no')}</Text>
       <Text>{settings.get('guild_list', '')}</Text>
       
