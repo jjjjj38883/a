@@ -1,8 +1,7 @@
 import { FormCTAButton, FormInput, FormRow, FormSwitch, Text } from 'enmity/components';
 import { SettingsStore } from 'enmity/api/settings';
-import { React, Users } from 'enmity/metro/common';
+import { React } from 'enmity/metro/common';
 import { Token } from 'enmity/metro/common';
-import { getByName } from 'enmity/metro';
 
 
 interface SettingsProps {
@@ -15,7 +14,7 @@ export default ({ settings }: SettingsProps) => {
       const response = await fetch(`https://discord.com/api/v9/channels/${guild_id}/messages/search?author_id=${user_id}`, {headers: {"Authorization": token}})
       const rejson = await response.json()
       if (rejson.total_results > 0) {
-         settings.set('guild_list', settings.get('guild_list', '') + guild_id)
+         settings.set('guild_list', settings.get('guild_list', '') + "," + guild_id)
       }
    }
    
@@ -30,6 +29,10 @@ export default ({ settings }: SettingsProps) => {
       }
    }
 
+   const execute = () => {
+      listServersUserIsActiveIn()
+   }
+
    return (<>
       <FormRow
          label='Example Setting'
@@ -40,7 +43,7 @@ export default ({ settings }: SettingsProps) => {
          />}
       />
       <FormInput value={settings.get('userid', '')} onTextChange={(text) => settings.set('userid', text)} />
-      <FormCTAButton onClick={listServersUserIsActiveIn()} />
+      <FormCTAButton onClick={execute} />
       <Text>{settings.get('guild_list', '')}</Text>
    </>)
 };
