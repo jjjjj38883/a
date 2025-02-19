@@ -8,24 +8,24 @@ interface SettingsProps {
 
 export default ({ settings }: SettingsProps) => {
 
-   // const searchUserMessages = async (user_id, guild_id, token) => {
-   //    const response = await fetch(`https://discord.com/api/v9/channels/${guild_id}/messages/search?author_id=${user_id}`, {headers: {"Authorization": token}})
-   //    const rejson = await response.json()
-   //    if (rejson.total_results > 0) {
-   //       settings.set('guild_list', settings.get('guild_list', '') + "," + guild_id)
-   //    }
-   // }
+   const searchUserMessages = async (user_id, guild_id, token) => {
+      const response = await fetch(`https://discord.com/api/v9/channels/${guild_id}/messages/search?author_id=${user_id}`, {headers: {"Authorization": token}})
+      const rejson = await response.json()
+      if (rejson.total_results > 0) {
+         settings.set('guild_list', settings.get('guild_list', '') + "," + guild_id)
+      }
+   }
    
-   // const listServersUserIsActiveIn = async () => {
-   //    const token = Token.getToken()
-   //    const user_id = settings.get('userid', '')
-   //    const response = await fetch(`https://discord.com/api/v9/users/@me/guilds`, {headers: {"Authorization": token}})
-   //    const rejson = await response.json()
-   //    const guild_ids: Array<number> = rejson.map(guild => guild.id)
-   //    for (const guild_id of guild_ids) {
-   //       await searchUserMessages(user_id, guild_id, token)
-   //    }
-   // }
+   const listServersUserIsActiveIn = async () => {
+      const token = Token.getToken()
+      const user_id = settings.get('userid', '')
+      const response = await fetch(`https://discord.com/api/v9/users/@me/guilds`, {headers: {"Authorization": token}})
+      const rejson = await response.json()
+      const guild_ids: Array<number> = rejson.map(guild => guild.id)
+      for (const guild_id of guild_ids) {
+         await searchUserMessages(user_id, guild_id, token)
+      }
+   }
 
    const execute = () => {
       settings.set('pressed', 'yes')
@@ -42,7 +42,7 @@ export default ({ settings }: SettingsProps) => {
          />}
       />
       <FormInput value={settings.get('userid', '')} onTextChange={(text) => settings.set('userid', text)} />
-      <TouchableOpacity onPress={execute}><div style={{padding: 30, backgroundColor: 'red'}}></div></TouchableOpacity>
+      <TouchableOpacity><div style={{padding: 30, backgroundColor: 'red'}}></div></TouchableOpacity>
       <Text>{settings.get('pressed', 'no')}</Text>
       <Text>{settings.get('guild_list', '')}</Text>
       
