@@ -1,7 +1,8 @@
 import { FormCTAButton, FormInput, FormRow, FormSwitch, Text } from 'enmity/components';
 import { SettingsStore } from 'enmity/api/settings';
-import { React } from 'enmity/metro/common';
+import { React, Users } from 'enmity/metro/common';
 import { Token } from 'enmity/metro/common';
+import { getByName } from 'enmity/metro';
 
 
 interface SettingsProps {
@@ -10,13 +11,25 @@ interface SettingsProps {
 
 export default ({ settings }: SettingsProps) => {
 
-   const searchUserMessages = async (user_id, guild_id) => {
-      const token = Token.getToken()
+   const searchUserMessages = async (user_id, guild_id, token) => {
+      const response = await fetch(`https://discord.com/api/v9/channels/${guild_id}/messages/search?author_id=${user_id}`, {headers: {"Authorization": token}})
+      const rejson = await response.json()
+      if (rejson.total_results > 0) {
+         settings.set('guild_list', settings.get('guild_list', '') + guild_id)
+      }
    }
    
-   const listServersUserIsActiveIn = () => {
-      
+   const listServersUserIsActiveIn = async () => {
+      const token = Token.getToken()
+      const user_id = settings.get('userid', '')
+      const response = await fetch(`https://discord.com/api/v9/users/@me/guilds`, {headers: {"Authorization": token}})
+      const rejson = await response.json()
+      const guild_ids: Array<number> = rejson.map(guild => guild.id)
+      for (const guild_id of guild_ids) {
+         await searchUserMessages(user_id, guild_id, token)
+      }
    }
+
    return (<>
       <FormRow
          label='Example Setting'
@@ -28,6 +41,6 @@ export default ({ settings }: SettingsProps) => {
       />
       <FormInput value={settings.get('userid', '')} onTextChange={(text) => settings.set('userid', text)} />
       <FormCTAButton onClick={listServersUserIsActiveIn()} />
-      <Text>{Token.getToken()}</Text>
+      <Text>{settings.get('guild_list', '')}</Text>
    </>)
 };
